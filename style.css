@@ -1,0 +1,76 @@
+#love4num-widget {
+  background-color: #c89d0d;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #222120;
+  text-align: center;
+  max-width: 450px;
+  margin: auto;
+}
+
+#love4num-widget h2,
+#love4num-widget p {
+  color: #222120;
+}
+
+#loto-widget {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+#loto-widget input[type="text"],
+#loto-widget button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#loto-widget input[type="text"] {
+  border: none;
+}
+
+#loto-widget button {
+  background-color: #222120;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#loto-widget button:hover {
+  background-color: #f8e825;
+}
+
+#resultats {
+  /* white-space: nowrap; */
+  overflow-x: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #c89d0d;
+  border-radius: 5px;
+  color: #222120;
+  font-size: 20px;
+  font-weight: bold;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+#resultats .titre {
+  /* Styles pour rendre les titres plus attractifs */
+  font-size: 18px; /* Taille adaptée pour les titres */
+  color: #ffffff; /* Couleur blanche pour contraste avec le fond moutarde */
+  margin: 20px 0 10px; /* Espacement pour séparer les titres des numéros */
+  font-weight: bold; /* Mettez en gras pour attirer l'attention */
+}
+
+#resultats .numero {
+  display: inline-block;
+  background-color: #222120;
+  color: #c89d0d;
+  border-radius: 50%;
+  font-size: 28px; /* Légère réduction de la taille de la police */
+  padding: 8px 16px; /* Ajustement du padding pour réduire l'espace */
+  margin: 0 5px;
+}
