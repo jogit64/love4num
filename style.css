@@ -13,6 +13,9 @@
 #love4num-widget p {
   color: #222120;
 }
+/* #love4num-widget h2 {
+  font-size: 18px;
+} */
 
 #loto-widget {
   max-width: 500px;
@@ -177,14 +180,25 @@
 }
 
 /* Styles spécifiques pour Euromillions */
-.euromillions-numeros,
+/* .euromillions-numeros,
 .euromillions-etoiles {
-  background-color: #001367; /* Foncé pour les numéros Euromillions */
+  background-color: #001367;
+} */
+
+.euromillions-numeros {
+  background-color: #001367;
 }
 
 .euromillions-etoiles {
-  background-color: #edbb08; /* Jaune pour les étoiles Euromillions */
+  background-image: url("assets/etoile5.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
+
+/* .euromillions-etoiles {
+  background-color: #edbb08; 
+} */
 
 /* Styles spécifiques pour Eurodreams */
 .eurodreams-numeros,

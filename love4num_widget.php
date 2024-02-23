@@ -72,7 +72,7 @@ function generer_numeros_loto()
                 return $key + 1;
             }, $keys);
             $numero_complementaire = rand(1, 10);
-            $response = "<div class='titre'>Numéros Loto:</div>" .
+            $response = "<div class='titre'>Vos numéros pour le Loto</div>" .
                 "<div class='numeros loto-numeros'>" . implode('</div><div class="numeros loto-numeros">', $numeros) . "</div>" .
                 "<div class='numero-complementaire loto-complementaire'>$numero_complementaire</div>";
             break;
@@ -85,7 +85,7 @@ function generer_numeros_loto()
             $etoiles = array_map(function ($key) {
                 return $key + 1;
             }, $keysEtoiles);
-            $response = "<div class='titre'>Numéros Euromillions:</div>" .
+            $response = "<div class='titre'>Vos numéros pour l'Euromillions</div>" .
                 "<div class='numeros euromillions-numeros'>" . implode('</div><div class="numeros euromillions-numeros">', $numeros) . "</div>" .
                 "<div class='etoiles euromillions-etoiles'>" . implode('</div><div class="etoiles euromillions-etoiles">', $etoiles) . "</div>";
             break;
@@ -95,7 +95,7 @@ function generer_numeros_loto()
                 return $key + 1;
             }, $keysNum);
             $numeroDream = rand(1, 5);
-            $response = "<div class='titre'>Numéros Eurodreams:</div>" .
+            $response = "<div class='titre'>Vos numéros pour l'Eurodreams</div>" .
                 "<div class='numeros eurodreams-numeros'>" . implode('</div><div class="numeros eurodreams-numeros">', $numeros) . "</div>" .
                 "<div class='numero-dream eurodreams-dream'>$numeroDream</div>";
             break;
