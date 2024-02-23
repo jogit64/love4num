@@ -65,15 +65,15 @@
   font-weight: bold; /* Mettez en gras pour attirer l'attention */
 }
 
-/* #resultats .numero {
+#resultats .numero {
   display: inline-block;
   background-color: #222120;
   color: #c89d0d;
   border-radius: 50%;
-  font-size: 28px; 
-  padding: 8px 16px; 
+  font-size: 28px; /* Légère réduction de la taille de la police */
+  padding: 8px 16px; /* Ajustement du padding pour réduire l'espace */
   margin: 0 5px;
-} */
+}
 
 .game-selection {
   display: flex;
@@ -95,10 +95,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
 }
 
-/* .game-img {
-  width: 60px; 
-  margin-top: 10px; 
-} */
+.game-img {
+  width: 60px; /* Ajustez selon la taille souhaitée */
+  margin-top: 10px; /* Espace au-dessus de l'image */
+}
 
 .game-label {
   margin: 10px 0; /* Espacement autour du texte */
@@ -146,59 +146,4 @@
 .game-option .game-label {
   font-size: 14px;
   text-align: center;
-}
-
-/* Général pour tous les numéros */
-.numeros,
-.numero-complementaire,
-.etoiles,
-.numero-dream {
-  display: inline-block;
-  color: #ffffff;
-  border-radius: 50%;
-  padding: 10px;
-  margin: 5px;
-  font-size: 20px; /* Ajustez selon la taille désirée */
-  font-weight: bold;
-  text-align: center;
-  width: 40px; /* Ajustez pour contrôler la taille du cercle */
-  height: 40px; /* Assure que le cercle est parfait */
-  line-height: 20px; /* Ajustez pour centrer le texte verticalement */
-}
-
-/* Styles spécifiques pour Loto */
-.loto-numeros,
-.loto-complementaire {
-  background-color: #00a2d9; /* Bleu clair pour les numéros Loto */
-}
-
-.loto-complementaire {
-  background-color: #ea3946; /* Rouge pour le numéro complémentaire Loto */
-}
-
-/* Styles spécifiques pour Euromillions */
-.euromillions-numeros,
-.euromillions-etoiles {
-  background-color: #001367; /* Foncé pour les numéros Euromillions */
-}
-
-.euromillions-etoiles {
-  background-color: #edbb08; /* Jaune pour les étoiles Euromillions */
-}
-
-/* Styles spécifiques pour Eurodreams */
-.eurodreams-numeros,
-.eurodreams-dream {
-  background-color: #781ea6; /* Violet pour les numéros Eurodreams */
-}
-
-.eurodreams-dream {
-  background-color: #ff3c69; /* Rouge pour le numéro Dream Eurodreams */
-}
-
-.titre {
-  margin-top: 20px;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: bold;
 }
