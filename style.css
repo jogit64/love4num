@@ -1,18 +1,30 @@
-#love4num-widget {
-  background-color: #c89d0d;
+@font-face {
+  font-family: "Henny";
+  src: url("assets/fonts/HennyPennyRegular.ttf") format("truetype");
+}
+
+#love4num-widget0 {
+  /* background-color: rgb(66, 182, 40); */
   padding: 20px;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #222120;
+  /* color: #222120; */
   text-align: center;
   max-width: 450px;
   margin: auto;
 }
 
-#love4num-widget h2,
-#love4num-widget p {
-  color: #222120;
+#love4num-widget0 h2 {
+  /* color: #222120; */
+  color: #ffb032;
+  font-family: "henny";
 }
+#love4num-widget0 p {
+  /* color: #222120; */
+  color: #ffb032;
+  /* font-family: "henny"; */
+}
+
 /* #love4num-widget h2 {
   font-size: 18px;
 } */
@@ -52,9 +64,10 @@
   overflow-x: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: #c89d0d;
+  /* background-color: #c89d0d; */
   border-radius: 5px;
-  color: #222120;
+  /* color: #222120; */
+  color: #ffb032;
   font-size: 20px;
   font-weight: bold;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
@@ -89,7 +102,8 @@
 .game-selection div {
   width: 30%; /* Largeur fixe pour chaque div pour garder les badges de la même taille */
   margin: 5px;
-  background-color: #222120; /* Couleur de fond foncée pour les badges */
+  /* background-color: #222120; */
+  /* background-color: #39ff14;  */
   border-radius: 4px; /* Bordures arrondies légères */
   display: flex;
   justify-content: center;
@@ -105,15 +119,16 @@
 
 .game-label {
   margin: 10px 0; /* Espacement autour du texte */
-  color: #ffffff; /* Texte blanc pour contraste */
+  color: #fff; /* Texte blanc pour contraste */
   font-size: 14px; /* Taille de la police pour les légendes */
 }
 
 /* Style pour la phrase explicative sous l'input */
 #loto-widget p {
   margin-top: 20px;
-  color: #222120; /* Couleur du texte */
-  font-weight: bold;
+  /* color: #222120;  */
+  color: #ffb032;
+  /* font-weight: bold; */
 }
 
 .game-img:hover {
@@ -128,7 +143,8 @@
   justify-content: center;
   width: 100px; /* ou une autre taille selon votre design */
   padding: 10px;
-  background-color: #222120;
+  /* background-color: #222120; */
+  background-color: #39ff14;
   color: #ffffff;
   border-radius: 4px;
   margin: 10px;
@@ -138,7 +154,8 @@
 
 .game-option:hover {
   transform: scale(1.05);
-  background-color: #333; /* Légèrement plus clair que le fond pour le survol */
+  /* background-color: #333;  */
+  background-color: #00ffff;
 }
 
 .game-option img {
@@ -212,7 +229,7 @@
 
 .titre {
   margin-top: 20px;
-  color: #ffffff;
+  color: #ffb032;
   font-size: 18px;
   font-weight: bold;
 }

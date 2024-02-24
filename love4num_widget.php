@@ -28,7 +28,7 @@ function love4num()
     $eurodreamsImgPath = plugin_dir_url(__FILE__) . 'assets/dreams.png';
 
     $content = <<<HTML
-<div id="love4num-widget">
+<div id="love4num-widget0">
     <h2>Transformez votre amour en numéros de chance</h2>
     <p>Entrez une phrase ou des mots d'amour pour voir comment l'univers transforme votre message en numéros de chance.</p>
     <div id="loto-widget">
