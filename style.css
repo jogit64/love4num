@@ -42,8 +42,28 @@
   max-width: 500px;
   margin: 20px auto;
 }
+#loto-widget input[type="text"] {
+  width: 100%;
+  padding: 10px 0; /* Ajuste le padding pour un look épuré */
+  margin-bottom: 10px; /* Espacement sous l'input */
+  background-color: #1a1a2e; /* Fond légèrement plus clair que #0F052C */
+  color: #e0b0ff; /* Couleur de texte pour une bonne lisibilité */
+  border: none; /* Supprime la bordure */
+  border-bottom: 2px solid #ff6ec7; /* Bordure inférieure néon rose */
+  box-sizing: border-box; /* Inclut padding et bordure dans la largeur */
+}
 
-#loto-widget input[type="text"],
+#loto-widget input[type="text"]::placeholder {
+  color: #e0b0ff; /* Couleur du placeholder pour une visibilité optimale */
+  opacity: 1; /* S'assure que le placeholder est bien visible */
+  text-align: center;
+}
+
+#loto-widget input[type="text"]:focus {
+  outline: none; /* Supprime l'outline lors de la sélection de l'input */
+  /* Pas d'effet de focus supplémentaire */
+}
+
 #loto-widget button {
   width: 100%;
   padding: 10px;
