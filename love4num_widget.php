@@ -63,7 +63,11 @@ function generer_numeros_loto()
     $jeu = isset($_POST['jeu']) ? $_POST['jeu'] : 'loto'; // Récupère le type de jeu
 
     $seed = crc32($texte);
-    mt_srand($seed);
+    // Ajustement de la graine avec le nombre d'or
+    $nombreDOr = 1.618033988749895;
+    $seedAjustee = floor($seed * $nombreDOr);
+
+    mt_srand($seedAjustee);
 
     switch ($jeu) {
         case 'loto':

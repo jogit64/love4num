@@ -18,7 +18,16 @@
   /* color: #222120; */
   color: #ffb032;
   font-family: "henny";
+  font-size: 2.1rem;
 }
+
+/* Media query pour les écrans de moins de 768px */
+@media (max-width: 768px) {
+  #love4num-widget0 h2 {
+    font-size: 1.5rem; /* Ajustez la taille de la police comme désiré */
+  }
+}
+
 #love4num-widget0 p {
   /* color: #222120; */
   color: #ffb032;
