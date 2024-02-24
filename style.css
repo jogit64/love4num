@@ -1,67 +1,78 @@
+/**
+ * Plugin Name: love4num Widget
+ * Description: Un widget qui génère des numéros de loto à partir de mots, d'une phrase emplie d'amour.
+ * Version: 1.0
+ * Author: Johannr/LeBonUnivers
+ */
+
+:root {
+  --primary-color: #ffb032;
+  --text-color: #e0b0ff;
+  --background-color-dark: #1a1a2e;
+  --accent-color-pink: #ff6ec7;
+  --button-bg-color: #222120;
+  --button-hover-bg-color: #f8e825;
+  --loto-bg-color: #00a2d9;
+  --loto-complementary-bg-color: #ea3946;
+  --euromillions-bg-color: #001367;
+  --eurodreams-bg-color: #781ea6;
+  --eurodreams-dream-bg-color: #ff3c69;
+}
 @font-face {
   font-family: "Henny";
   src: url("assets/fonts/HennyPennyRegular.ttf") format("truetype");
 }
 
 #love4num-widget0 {
-  /* background-color: rgb(66, 182, 40); */
   padding: 20px;
-  /* border-radius: 8px; */
+
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* color: #222120; */
+
   text-align: center;
   max-width: 450px;
   margin: auto;
 }
 
 #love4num-widget0 h2 {
-  /* color: #222120; */
-  color: #ffb032;
+  color: var(--primary-color);
   font-family: "henny";
   font-size: 2.1rem;
 }
 
-/* Media query pour les écrans de moins de 768px */
 @media (max-width: 768px) {
   #love4num-widget0 h2 {
-    font-size: 1.5rem; /* Ajustez la taille de la police comme désiré */
+    font-size: 1.5rem;
   }
 }
 
 #love4num-widget0 p {
-  /* color: #222120; */
-  color: #ffb032;
-  /* font-family: "henny"; */
+  color: var(--primary-color);
 }
 
-/* #love4num-widget h2 {
-  font-size: 18px;
-} */
-
-#loto-widget {
+/ #loto-widget {
   max-width: 500px;
   margin: 20px auto;
 }
+
 #loto-widget input[type="text"] {
   width: 100%;
-  padding: 10px 0; /* Ajuste le padding pour un look épuré */
-  margin-bottom: 10px; /* Espacement sous l'input */
-  background-color: #1a1a2e; /* Fond légèrement plus clair que #0F052C */
-  color: #e0b0ff; /* Couleur de texte pour une bonne lisibilité */
-  border: none; /* Supprime la bordure */
-  border-bottom: 2px solid #ff6ec7; /* Bordure inférieure néon rose */
-  box-sizing: border-box; /* Inclut padding et bordure dans la largeur */
+  padding: 10px 0;
+  margin-bottom: 10px;
+  background-color: var(--background-color-dark);
+  color: var(--text-color);
+  border: none;
+  border-bottom: 2px solid var(--accent-color-pink);
+  box-sizing: border-box;
 }
 
 #loto-widget input[type="text"]::placeholder {
-  color: #e0b0ff; /* Couleur du placeholder pour une visibilité optimale */
-  opacity: 1; /* S'assure que le placeholder est bien visible */
+  color: var(--text-color);
+  opacity: 1;
   text-align: center;
 }
 
 #loto-widget input[type="text"]:focus {
-  outline: none; /* Supprime l'outline lors de la sélection de l'input */
-  /* Pas d'effet de focus supplémentaire */
+  outline: none;
 }
 
 #loto-widget button {
@@ -77,7 +88,7 @@
 }
 
 #loto-widget button {
-  background-color: #222120;
+  background-color: var(--button-bg-color);
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -85,83 +96,62 @@
 }
 
 #loto-widget button:hover {
-  background-color: #f8e825;
+  background-color: var(--button-hover-bg-color);
 }
 
 #resultats {
-  /* white-space: nowrap; */
   overflow-x: auto;
   margin-top: 20px;
   margin-bottom: 20px;
-  /* background-color: #c89d0d; */
+
   border-radius: 5px;
-  /* color: #222120; */
-  color: #ffb032;
+
+  color: var(--primary-color);
   font-size: 20px;
   font-weight: bold;
-  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 #resultats .titre {
-  /* Styles pour rendre les titres plus attractifs */
-  font-size: 18px; /* Taille adaptée pour les titres */
-  color: #ffffff; /* Couleur blanche pour contraste avec le fond moutarde */
-  margin: 20px 0 10px; /* Espacement pour séparer les titres des numéros */
-  font-weight: bold; /* Mettez en gras pour attirer l'attention */
+  font-size: 18px;
+  color: #ffffff;
+  margin: 20px 0 10px;
+  font-weight: bold;
 }
-
-/* #resultats .numero {
-  display: inline-block;
-  background-color: #222120;
-  color: #c89d0d;
-  border-radius: 50%;
-  font-size: 28px; 
-  padding: 8px 16px; 
-  margin: 0 5px;
-} */
 
 .game-selection {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 20px auto;
-  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
+  flex-wrap: wrap;
 }
 
 .game-selection div {
-  width: 30%; /* Largeur fixe pour chaque div pour garder les badges de la même taille */
+  width: 30%;
   margin: 5px;
-  /* background-color: #222120; */
-  /* background-color: #39ff14;  */
-  border-radius: 4px; /* Bordures arrondies légères */
+
+  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; /* Organise l'image et le texte verticalement */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
-/* .game-img {
-  width: 60px; 
-  margin-top: 10px; 
-} */
 
 .game-label {
-  margin: 10px 0; /* Espacement autour du texte */
-  color: #fff; /* Texte blanc pour contraste */
-  font-size: 14px; /* Taille de la police pour les légendes */
+  margin: 10px 0;
+  color: #fff;
+  font-size: 14px;
 }
 
-/* Style pour la phrase explicative sous l'input */
 #loto-widget p {
   margin-top: 20px;
-  /* color: #222120;  */
-  color: #ffb032;
-  /* font-weight: bold; */
+
+  color: var(--primary-color);
 }
 
 .game-img:hover {
-  transform: scale(1.1); /* Effet de survol pour indiquer la sélection */
+  transform: scale(1.1);
 }
 
 .game-option {
@@ -170,9 +160,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px; /* ou une autre taille selon votre design */
+  width: 100px;
   padding: 10px;
-  /* background-color: #222120; */
+
   background-color: #39ff14;
   color: #ffffff;
   border-radius: 4px;
@@ -183,12 +173,12 @@
 
 .game-option:hover {
   transform: scale(1.05);
-  /* background-color: #333;  */
+
   background-color: #00ffff;
 }
 
 .game-option img {
-  width: 60px; /* Taille ajustée pour l'image */
+  width: 60px;
   margin-bottom: 5px;
 }
 
@@ -197,7 +187,6 @@
   text-align: center;
 }
 
-/* Général pour tous les numéros */
 .numeros,
 .numero-complementaire,
 .etoiles,
@@ -207,32 +196,25 @@
   border-radius: 50%;
   padding: 10px;
   margin: 5px;
-  font-size: 20px; /* Ajustez selon la taille désirée */
+  font-size: 20px;
   font-weight: bold;
   text-align: center;
-  width: 40px; /* Ajustez pour contrôler la taille du cercle */
-  height: 40px; /* Assure que le cercle est parfait */
-  line-height: 20px; /* Ajustez pour centrer le texte verticalement */
+  width: 40px;
+  height: 40px;
+  line-height: 20px;
 }
 
-/* Styles spécifiques pour Loto */
 .loto-numeros,
 .loto-complementaire {
-  background-color: #00a2d9; /* Bleu clair pour les numéros Loto */
+  background-color: var(--loto-bg-color);
 }
 
 .loto-complementaire {
-  background-color: #ea3946; /* Rouge pour le numéro complémentaire Loto */
+  background-color: var(--loto-complementary-bg-color);
 }
 
-/* Styles spécifiques pour Euromillions */
-/* .euromillions-numeros,
-.euromillions-etoiles {
-  background-color: #001367;
-} */
-
 .euromillions-numeros {
-  background-color: #001367;
+  background-color: var(--euromillions-bg-color);
 }
 
 .euromillions-etoiles {
@@ -242,23 +224,18 @@
   background-size: contain;
 }
 
-/* .euromillions-etoiles {
-  background-color: #edbb08; 
-} */
-
-/* Styles spécifiques pour Eurodreams */
 .eurodreams-numeros,
 .eurodreams-dream {
-  background-color: #781ea6; /* Violet pour les numéros Eurodreams */
+  background-color: var(--eurodreams-bg-color);
 }
 
 .eurodreams-dream {
-  background-color: #ff3c69; /* Rouge pour le numéro Dream Eurodreams */
+  background-color: var(--eurodreams-dream-bg-color);
 }
 
 .titre {
   margin-top: 20px;
-  color: #ffb032;
+  color: var(--primary-color);
   font-size: 18px;
   font-weight: bold;
 }
