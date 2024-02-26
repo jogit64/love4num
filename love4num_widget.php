@@ -63,51 +63,52 @@ function generer_numeros_loto()
     $jeu = isset($_POST['jeu']) ? $_POST['jeu'] : 'loto'; // Récupère le type de jeu
 
     $seed = crc32($texte);
-    // Ajustement de la graine avec le nombre d'or
-    $nombreDOr = 1.618033988749895;
-    $seedAjustee = floor($seed * $nombreDOr);
-
-    mt_srand($seedAjustee);
+    mt_srand($seed);
 
     switch ($jeu) {
         case 'loto':
-            $keys = array_rand(range(1, 49), 5);
-            $numeros = array_map(function ($key) {
-                return $key + 1;
-            }, $keys);
+            $possibleNumbers = range(1, 49);
+            shuffle($possibleNumbers);
+            $numeros = array_slice($possibleNumbers, 0, 5);
             $numero_complementaire = rand(1, 10);
-            $response = "<div class='titre'>Vos numéros pour le Loto</div>" .
-                "<div class='numeros loto-numeros'>" . implode('</div><div class="numeros loto-numeros">', $numeros) . "</div>" .
-                "<div class='numero-complementaire loto-complementaire'>$numero_complementaire</div>";
             break;
         case 'euromillions':
-            $keysNum = array_rand(range(1, 50), 5);
-            $numeros = array_map(function ($key) {
-                return $key + 1;
-            }, $keysNum);
-            $keysEtoiles = array_rand(range(1, 12), 2);
-            $etoiles = array_map(function ($key) {
-                return $key + 1;
-            }, $keysEtoiles);
-            $response = "<div class='titre'>Vos numéros pour l'Euromillions</div>" .
-                "<div class='numeros euromillions-numeros'>" . implode('</div><div class="numeros euromillions-numeros">', $numeros) . "</div>" .
-                "<div class='etoiles euromillions-etoiles'>" . implode('</div><div class="etoiles euromillions-etoiles">', $etoiles) . "</div>";
+            $possibleNumbers = range(1, 50);
+            shuffle($possibleNumbers);
+            $numeros = array_slice($possibleNumbers, 0, 5);
+            $possibleEtoiles = range(1, 12); // Correction pour la plage correcte des étoiles
+            shuffle($possibleEtoiles);
+            $etoiles = array_slice($possibleEtoiles, 0, 2);
             break;
         case 'eurodreams':
-            $keysNum = array_rand(range(1, 40), 6);
-            $numeros = array_map(function ($key) {
-                return $key + 1;
-            }, $keysNum);
+            $possibleNumbers = range(1, 40);
+            shuffle($possibleNumbers);
+            $numeros = array_slice($possibleNumbers, 0, 6);
             $numeroDream = rand(1, 5);
-            $response = "<div class='titre'>Vos numéros pour l'Eurodreams</div>" .
-                "<div class='numeros eurodreams-numeros'>" . implode('</div><div class="numeros eurodreams-numeros">', $numeros) . "</div>" .
-                "<div class='numero-dream eurodreams-dream'>$numeroDream</div>";
             break;
     }
+
+    // Construction de la réponse selon le jeu
+    $response = construire_reponse($jeu, $numeros, isset($etoiles) ? $etoiles : null, $numero_complementaire ?? $numeroDream);
 
     echo $response;
     wp_die();
 }
+
+function construire_reponse($jeu, $numeros, $etoiles = null, $numeroComplementaire)
+{
+    $response = "<div class='titre'>Vos numéros pour le $jeu</div>" .
+        "<div class='numeros $jeu-numeros'>" . implode('</div><div class="numeros ' . $jeu . '-numeros">', $numeros) . "</div>";
+
+    if ($etoiles !== null) {
+        $response .= "<div class='etoiles $jeu-etoiles'>" . implode('</div><div class="etoiles ' . $jeu . '-etoiles">', $etoiles) . "</div>";
+    } else {
+        $response .= "<div class='numero-complementaire $jeu-complementaire'>$numeroComplementaire</div>";
+    }
+
+    return $response;
+}
+
 
 
 
