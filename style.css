@@ -1,241 +1,132 @@
-/**
- * Plugin Name: love4num Widget
- * Description: Un widget qui génère des numéros de loto à partir de mots, d'une phrase emplie d'amour.
- * Version: 1.0
- * Author: Johannr/LeBonUnivers
- */
-
-:root {
-  --primary-color: #ffb032;
-  --text-color: #e0b0ff;
-  --background-color-dark: #1a1a2e;
-  --accent-color-pink: #ff6ec7;
-  --button-bg-color: #222120;
-  --button-hover-bg-color: #f8e825;
-  --loto-bg-color: #00a2d9;
-  --loto-complementary-bg-color: #ea3946;
-  --euromillions-bg-color: #001367;
-  --eurodreams-bg-color: #781ea6;
-  --eurodreams-dream-bg-color: #ff3c69;
-}
-@font-face {
-  font-family: "Henny";
-  src: url("assets/fonts/HennyPennyRegular.ttf") format("truetype");
-}
-
 #love4num-widget0 {
+  font-family: "Arial", sans-serif;
+  background-color: #ffffff;
   padding: 20px;
-
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  text-align: center;
-  max-width: 450px;
-  margin: auto;
-}
-
-#love4num-widget0 h2 {
-  color: var(--primary-color);
-  font-family: "henny";
-  font-size: 2.1rem;
-}
-
-@media (max-width: 768px) {
-  #love4num-widget0 h2 {
-    font-size: 1.5rem;
-  }
-}
-
-#love4num-widget0 p {
-  color: var(--primary-color);
-}
-
-/ #loto-widget {
-  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
   margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#loto-widget input[type="text"] {
-  width: 100%;
-  padding: 10px 0;
-  margin-bottom: 10px;
-  background-color: var(--background-color-dark);
-  color: var(--text-color);
-  border: none;
-  border-bottom: 2px solid var(--accent-color-pink);
-  box-sizing: border-box;
-}
-
-#loto-widget input[type="text"]::placeholder {
-  color: var(--text-color);
-  opacity: 1;
-  text-align: center;
-}
-
-#loto-widget input[type="text"]:focus {
-  outline: none;
-}
-
-#loto-widget button {
-  width: 100%;
+#love4num-widget0 input[type="text"] {
+  width: calc(100% - 20px);
   padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-#loto-widget input[type="text"] {
-  border: none;
-}
-
-#loto-widget button {
-  background-color: var(--button-bg-color);
-  color: #ffffff;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#loto-widget button:hover {
-  background-color: var(--button-hover-bg-color);
-}
-
-#resultats {
-  overflow-x: auto;
-  margin-top: 20px;
   margin-bottom: 20px;
-
-  border-radius: 5px;
-
-  color: var(--primary-color);
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#resultats .titre {
-  font-size: 18px;
-  color: #ffffff;
-  margin: 20px 0 10px;
-  font-weight: bold;
+  border: 2px solid #d3d3d3;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 .game-selection {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 20px auto;
   flex-wrap: wrap;
-}
-
-.game-selection div {
-  width: 30%;
-  margin: 5px;
-
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.game-label {
-  margin: 10px 0;
-  color: #fff;
-  font-size: 14px;
-}
-
-#loto-widget p {
-  margin-top: 20px;
-
-  color: var(--primary-color);
-}
-
-.game-img:hover {
-  transform: scale(1.1);
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .game-option {
-  cursor: pointer;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  padding: 10px;
-
-  background-color: #39ff14;
-  color: #ffffff;
-  border-radius: 4px;
-  margin: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.game-option:hover {
-  transform: scale(1.05);
-
-  background-color: #00ffff;
+  text-align: center;
+  flex-basis: calc(33.333% - 20px);
+  box-sizing: border-box;
 }
 
 .game-option img {
-  width: 60px;
-  margin-bottom: 5px;
+  width: 100%;
+  max-width: 60px;
+  margin-bottom: 8px;
+  vertical-align: middle;
 }
 
-.game-option .game-label {
-  font-size: 14px;
-  text-align: center;
-}
-
-.numeros,
-.numero-complementaire,
-.etoiles,
-.numero-dream {
-  display: inline-block;
+.game-label {
+  display: block;
+  background-color: #7a5dbf;
   color: #ffffff;
-  border-radius: 50%;
-  padding: 10px;
-  margin: 5px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  width: 40px;
-  height: 40px;
-  line-height: 20px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: auto;
 }
 
-.loto-numeros,
-.loto-complementaire {
-  background-color: var(--loto-bg-color);
-}
-
-.loto-complementaire {
-  background-color: var(--loto-complementary-bg-color);
-}
-
-.euromillions-numeros {
-  background-color: var(--euromillions-bg-color);
-}
-
-.euromillions-etoiles {
-  background-image: url("assets/etoile5.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
-.eurodreams-numeros,
-.eurodreams-dream {
-  background-color: var(--eurodreams-bg-color);
-}
-
-.eurodreams-dream {
-  background-color: var(--eurodreams-dream-bg-color);
+#resultats {
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .titre {
-  margin-top: 20px;
-  color: var(--primary-color);
-  font-size: 18px;
+  color: #7a5dbf;
+  font-size: 20px;
   font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.numeros,
+.etoiles,
+.numero-complementaire {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%;
+  margin: 5px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+/* Loto-specific styles */
+.loto-numeros {
+  background-color: #00a2d9;
+}
+
+.loto-complementaire {
+  background-color: #ea3946;
+}
+
+/* Euromillions-specific styles */
+.euromillions-numeros {
+  background-color: #001367;
+}
+
+.euromillions-etoiles {
+  background-image: url("assets/etoile5.png"); /* Assurez-vous que le chemin est correct */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Ajustez selon la taille souhaitée */
+  height: 40px; /* Ajustez selon la taille souhaitée */
+  border-radius: 50%; /* Pour le style rond */
+  color: #ffffff; /* Couleur du texte */
+}
+
+/* Eurodreams-specific styles */
+.eurodreams-numeros,
+.eurodreams-dream {
+  background-color: #781ea6;
+}
+
+.eurodreams-dream {
+  background-color: #ff3c69;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 16px;
 }

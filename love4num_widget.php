@@ -23,21 +23,19 @@ add_action('wp_enqueue_scripts', 'love4num_scripts');
 
 function love4num()
 {
-    $lotoImgPath = plugin_dir_url(__FILE__) . 'assets/loto.png';
-    $euromillionsImgPath = plugin_dir_url(__FILE__) . 'assets/euromillions.png';
-    $eurodreamsImgPath = plugin_dir_url(__FILE__) . 'assets/dreams.png';
+    $lotoImgPath = plugin_dir_url(__FILE__) . 'assets/iconlov4.png';
+    $euromillionsImgPath = plugin_dir_url(__FILE__) . 'assets/iconlov4_5.png';
+    $eurodreamsImgPath = plugin_dir_url(__FILE__) . 'assets/iconlov4_3.png';
 
     $content = <<<HTML
 <div id="love4num-widget0">
-    <h2>Transformez votre amour en numéros de chance</h2>
-    <p>Entrez une phrase ou des mots d'amour pour voir comment l'univers transforme votre message en numéros de chance.</p>
-    <div id="loto-widget">
+       <div id="loto-widget">
         <input type="text" id="phrase-positive" placeholder="Entrez votre phrase positive">
         <p>Choisissez le tirage pour générer vos numéros d'amour :</p>
         <div class="game-selection">
-            <div class="game-option" data-game="loto"><img src="{$lotoImgPath}" alt="Loto"><span class="game-label">Loto</span></div>
-            <div class="game-option" data-game="euromillions"><img src="{$euromillionsImgPath}" alt="Euromillions"><span class="game-label">Euromillions</span></div>
-            <div class="game-option" data-game="eurodreams"><img src="{$eurodreamsImgPath}" alt="Eurodreams"><span class="game-label">Eurodreams</span></div>
+            <div class="game-option" data-game="loto"><img src="{$lotoImgPath}" alt="Loto"><span class="game-label"> Classique</span></div>
+            <div class="game-option" data-game="euromillions"><img src="{$euromillionsImgPath}" alt="Euromillions"><span class="game-label">Européen</span></div>
+            <div class="game-option" data-game="eurodreams"><img src="{$eurodreamsImgPath}" alt="Eurodreams"><span class="game-label">Rêves</span></div>
         </div>
     </div>
     <div id="resultats"></div>
@@ -100,7 +98,9 @@ function construire_reponse($jeu, $numeros, $etoiles = null, $numeroComplementai
     $response = "<div class='titre'>Vos numéros pour le $jeu</div>" .
         "<div class='numeros $jeu-numeros'>" . implode('</div><div class="numeros ' . $jeu . '-numeros">', $numeros) . "</div>";
 
-    if ($etoiles !== null) {
+    if ($jeu == 'eurodreams') {
+        $response .= "<div class='numero-complementaire eurodreams-dream'>$numeroComplementaire</div>";
+    } else if ($etoiles !== null) {
         $response .= "<div class='etoiles $jeu-etoiles'>" . implode('</div><div class="etoiles ' . $jeu . '-etoiles">', $etoiles) . "</div>";
     } else {
         $response .= "<div class='numero-complementaire $jeu-complementaire'>$numeroComplementaire</div>";

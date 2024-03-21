@@ -1,0 +1,270 @@
+:root {
+  /* Primary color palette */
+  --primary-color: #ffb032; /* Primary color used in texts and backgrounds */
+  --text-color: #e0b0ff; /* Text color for inputs and placeholders */
+  --background-color-dark: #1a1a2e; /* Dark background color for inputs */
+  --accent-color-pink: #ff6ec7; /* Accent color for input borders */
+  --button-bg-color: #222120; /* Button background color */
+  --button-hover-bg-color: #f8e825; /* Button hover background color */
+  --loto-bg-color: #00a2d9; /* Loto background color */
+  --loto-complementary-bg-color: #ea3946; /* Loto complementary color */
+  --euromillions-bg-color: #001367; /* Euromillions background color */
+  --eurodreams-bg-color: #781ea6; /* Eurodreams background color */
+  --eurodreams-dream-bg-color: #ff3c69; /* Eurodreams dream color */
+}
+@font-face {
+  font-family: "Henny";
+  src: url("assets/fonts/HennyPennyRegular.ttf") format("truetype");
+}
+
+#love4num-widget0 {
+  /* background-color: rgb(66, 182, 40); */
+  padding: 20px;
+  /* border-radius: 8px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* color: var(--button-bg-color); */
+  text-align: center;
+  max-width: 450px;
+  margin: auto;
+}
+
+#love4num-widget0 h2 {
+  /* color: var(--button-bg-color); */
+  color: var(--primary-color);
+  font-family: "henny";
+  font-size: 2.1rem;
+}
+
+/* Media query pour les écrans de moins de 768px */
+@media (max-width: 768px) {
+  #love4num-widget0 h2 {
+    font-size: 1.5rem; /* Ajustez la taille de la police comme désiré */
+  }
+}
+
+#love4num-widget0 p {
+  /* color: var(--button-bg-color); */
+  color: var(--primary-color);
+  /* font-family: "henny"; */
+}
+
+/ #loto-widget {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+#loto-widget input[type="text"] {
+  width: 100%;
+  padding: 10px 0; /* Ajuste le padding pour un look épuré */
+  margin-bottom: 10px; /* Espacement sous l'input */
+  background-color: var(
+    --background-color-dark
+  ); /* Fond légèrement plus clair que #0F052C */
+  color: var(--text-color); /* Couleur de texte pour une bonne lisibilité */
+  border: none; /* Supprime la bordure */
+  border-bottom: 2px solid var(--accent-color-pink); /* Bordure inférieure néon rose */
+  box-sizing: border-box; /* Inclut padding et bordure dans la largeur */
+}
+
+#loto-widget input[type="text"]::placeholder {
+  color: var(
+    --text-color
+  ); /* Couleur du placeholder pour une visibilité optimale */
+  opacity: 1; /* S'assure que le placeholder est bien visible */
+  text-align: center;
+}
+
+#loto-widget input[type="text"]:focus {
+  outline: none; /* Supprime l'outline lors de la sélection de l'input */
+  /* Pas d'effet de focus supplémentaire */
+}
+
+#loto-widget button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#loto-widget input[type="text"] {
+  border: none;
+}
+
+#loto-widget button {
+  background-color: var(--button-bg-color);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#loto-widget button:hover {
+  background-color: var(--button-hover-bg-color);
+}
+
+#resultats {
+  /* white-space: nowrap; */
+  overflow-x: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* background-color: #c89d0d; */
+  border-radius: 5px;
+  /* color: var(--button-bg-color); */
+  color: var(--primary-color);
+  font-size: 20px;
+  font-weight: bold;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+#resultats .titre {
+  /* Styles pour rendre les titres plus attractifs */
+  font-size: 18px; /* Taille adaptée pour les titres */
+  color: #ffffff; /* Couleur blanche pour contraste avec le fond moutarde */
+  margin: 20px 0 10px; /* Espacement pour séparer les titres des numéros */
+  font-weight: bold; /* Mettez en gras pour attirer l'attention */
+}
+
+.game-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  flex-wrap: wrap;
+}
+
+.game-selection div {
+  width: 30%;
+  margin: 5px;
+  /* background-color: var(--button-bg-color); */
+  /* background-color: #39ff14;  */
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.game-label {
+  margin: 10px 0; /* Espacement autour du texte */
+  color: #fff; /* Texte blanc pour contraste */
+  font-size: 14px; /* Taille de la police pour les légendes */
+}
+
+/* Style pour la phrase explicative sous l'input */
+#loto-widget p {
+  margin-top: 20px;
+  /* color: var(--button-bg-color);  */
+  color: var(--primary-color);
+  /* font-weight: bold; */
+}
+
+.game-img:hover {
+  transform: scale(1.1); /* Effet de survol pour indiquer la sélection */
+}
+
+.game-option {
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px; /* ou une autre taille selon votre design */
+  padding: 10px;
+  /* background-color: var(--button-bg-color); */
+  background-color: #39ff14;
+  color: #ffffff;
+  border-radius: 4px;
+  margin: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.game-option:hover {
+  transform: scale(1.05);
+  /* background-color: #333;  */
+  background-color: #00ffff;
+}
+
+.game-option img {
+  width: 60px; /* Taille ajustée pour l'image */
+  margin-bottom: 5px;
+}
+
+.game-option .game-label {
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Général pour tous les numéros */
+.numeros,
+.numero-complementaire,
+.etoiles,
+.numero-dream {
+  display: inline-block;
+  color: #ffffff;
+  border-radius: 50%;
+  padding: 10px;
+  margin: 5px;
+  font-size: 20px; /* Ajustez selon la taille désirée */
+  font-weight: bold;
+  text-align: center;
+  width: 40px; /* Ajustez pour contrôler la taille du cercle */
+  height: 40px; /* Assure que le cercle est parfait */
+  line-height: 20px; /* Ajustez pour centrer le texte verticalement */
+}
+
+/* Styles spécifiques pour Loto */
+.loto-numeros,
+.loto-complementaire {
+  background-color: var(--loto-bg-color); /* Bleu clair pour les numéros Loto */
+}
+
+.loto-complementaire {
+  background-color: var(
+    --loto-complementary-bg-color
+  ); /* Rouge pour le numéro complémentaire Loto */
+}
+
+/* Styles spécifiques pour Euromillions */
+/* .euromillions-numeros,
+.euromillions-etoiles {
+  background-color: var(--euromillions-bg-color);
+} */
+
+.euromillions-numeros {
+  background-color: var(--euromillions-bg-color);
+}
+
+.euromillions-etoiles {
+  background-image: url("assets/etoile5.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* .euromillions-etoiles {
+  background-color: #edbb08; 
+} */
+
+/* Styles spécifiques pour Eurodreams */
+.eurodreams-numeros,
+.eurodreams-dream {
+  background-color: var(
+    --eurodreams-bg-color
+  ); /* Violet pour les numéros Eurodreams */
+}
+
+.eurodreams-dream {
+  background-color: var(
+    --eurodreams-dream-bg-color
+  ); /* Rouge pour le numéro Dream Eurodreams */
+}
+
+.titre {
+  margin-top: 20px;
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: bold;
+}
