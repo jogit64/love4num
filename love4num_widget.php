@@ -7,6 +7,9 @@
  * Author: Johannr/LeBonUnivers
  */
 
+require_once(plugin_dir_path(__FILE__) . 'firebase_config.php');
+
+
 function love4num_styles()
 {
     wp_enqueue_style('love4num-css', plugin_dir_url(__FILE__) . 'style.css', array(), '1.0', 'all');
@@ -51,8 +54,6 @@ HTML;
 }
 
 add_shortcode('love4num', 'love4num');
-
-
 
 
 
@@ -135,10 +136,60 @@ function construire_reponse($jeu, $numeros, $etoiles = null, $numeroComplementai
 }
 
 
-
-
 // Hook pour les utilisateurs connectés
 add_action('wp_ajax_generer_numeros_loto', 'generer_numeros_loto');
 
 // Hook pour les visiteurs non connectés
 add_action('wp_ajax_nopriv_generer_numeros_loto', 'generer_numeros_loto');
+
+
+// Exemple d'une fonction pour récupérer les statistiques d'un numéro
+function get_statistiques_numero($numero, $type, $jeu)
+{
+    // Mappage entre le type de jeu et le nom de la collection Firestore
+    $collections = [
+        'loto' => 'lotoStats',
+        'euromillions' => 'euromillionsStats',
+        'eurodreams' => 'eurodreamsStats',
+    ];
+
+    // Sélection de la collection en fonction du jeu
+    $collectionName = isset($collections[$jeu]) ? $collections[$jeu] : null;
+    if (!$collectionName) {
+        // Gérer le cas où le nom de la collection n'est pas trouvé
+        return null;
+    }
+
+    // Construction de l'URL pour interroger Firestore
+    // Remplacez FIREBASE_PROJECT_ID par la valeur réelle stockée dans votre fichier firebase_config.php
+    $url = sprintf(
+        "https://firestore.googleapis.com/v1/projects/%s/databases/(default)/documents/%s/%s_%s",
+        'love4num-3ffd4',
+        $collectionName,
+        $numero,
+        $type
+    );
+
+    // Effectuer la requête GET
+    $response = wp_remote_get($url);
+    if (is_wp_error($response)) {
+        // Gérer l'erreur
+        return null;
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body, true);
+
+    // Extraire et retourner les informations nécessaires depuis $data
+    // Vous devrez adapter cette partie en fonction de la structure exacte de vos données Firestore
+    if (isset($data['fields'])) {
+        // Exemple d'extraction des données
+        return [
+            'derniereSortie' => $data['fields']['derniereSortie']['stringValue'],
+            'nombreDeSorties' => $data['fields']['nombreDeSorties']['integerValue'],
+            'pourcentageDeSorties' => $data['fields']['pourcentageDeSorties']['stringValue'],
+        ];
+    }
+
+    return null;
+}
