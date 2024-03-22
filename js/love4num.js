@@ -19,4 +19,9 @@ jQuery(document).ready(function ($) {
       $("#resultats").html(response);
     });
   });
+
+  $("#reset-btn").click(function () {
+    $("#phrase-positive").val(""); // Réinitialise le champ de texte
+    $("#resultats").html(""); // Efface les résultats affichés
+  });
 });

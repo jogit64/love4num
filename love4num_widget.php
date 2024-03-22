@@ -26,23 +26,30 @@ function love4num()
     $lotoImgPath = plugin_dir_url(__FILE__) . 'assets/iconlov4.png';
     $euromillionsImgPath = plugin_dir_url(__FILE__) . 'assets/iconlov4_5.png';
     $eurodreamsImgPath = plugin_dir_url(__FILE__) . 'assets/iconlov4_3.png';
+    $gommeImgPath = plugin_dir_url(__FILE__) . 'assets/gomme.png'; // Chemin vers l'image gomme
 
     $content = <<<HTML
 <div id="love4num-widget0">
-       <div id="loto-widget">
-        <input type="text" id="phrase-positive" placeholder="Entrez votre phrase positive">
-        <p>Choisissez le tirage pour générer vos numéros d'amour :</p>
+       <!-- <div id="loto-widget"> -->
+        <div class="line-input">
+            <input type="text" id="phrase-positive" placeholder="Entrez votre phrase positive">
+            <img src="{$gommeImgPath}" alt="Effacer" id="reset-btn" />
+        </div>
+        <div class="line-consigne">
+            <p>Choisissez le tirage pour générer vos numéros d'amour :</p>
+        </div>
         <div class="game-selection">
             <div class="game-option" data-game="loto"><img src="{$lotoImgPath}" alt="Loto"><span class="game-label"> Classique</span></div>
             <div class="game-option" data-game="euromillions"><img src="{$euromillionsImgPath}" alt="Euromillions"><span class="game-label">Européen</span></div>
             <div class="game-option" data-game="eurodreams"><img src="{$eurodreamsImgPath}" alt="Eurodreams"><span class="game-label">Rêves</span></div>
         </div>
-    </div>
+    <!-- </div> -->
     <div id="resultats"></div>
 </div>
 HTML;
     return $content;
 }
+
 add_shortcode('love4num', 'love4num');
 
 
@@ -93,9 +100,27 @@ function generer_numeros_loto()
     wp_die();
 }
 
+// Nouvelle fonction pour déterminer le titre en fonction du jeu
+function titre_jeu($jeu)
+{
+    switch ($jeu) {
+        case 'loto':
+            return 'le Loto';
+        case 'euromillions':
+            return "l'Euromillion"; // Notez l'ajout de l'apostrophe
+        case 'eurodreams':
+            return "l'Eurodreams"; // De même ici
+        default:
+            return 'le jeu'; // Valeur par défaut au cas où
+    }
+}
+
 function construire_reponse($jeu, $numeros, $etoiles = null, $numeroComplementaire)
 {
-    $response = "<div class='titre'>Vos numéros pour le $jeu</div>" .
+    // Détermine le titre approprié en fonction du jeu
+    $titreJeu = titre_jeu($jeu);
+
+    $response = "<div class='titre'>Vos numéros pour $titreJeu</div>" .
         "<div class='numeros $jeu-numeros'>" . implode('</div><div class="numeros ' . $jeu . '-numeros">', $numeros) . "</div>";
 
     if ($jeu == 'eurodreams') {
