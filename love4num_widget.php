@@ -121,19 +121,33 @@ function construire_reponse($jeu, $numeros, $etoiles = null, $numeroComplementai
     // Détermine le titre approprié en fonction du jeu
     $titreJeu = titre_jeu($jeu);
 
-    $response = "<div class='titre'>Vos numéros pour $titreJeu</div>" .
-        "<div class='numeros $jeu-numeros'>" . implode('</div><div class="numeros ' . $jeu . '-numeros">', $numeros) . "</div>";
+    // Début de la réponse
+    $response = "<div class='titre'>Vos numéros pour $titreJeu :</div>";
 
-    if ($jeu == 'eurodreams') {
-        $response .= "<div class='numero-complementaire eurodreams-dream'>$numeroComplementaire</div>";
-    } else if ($etoiles !== null) {
-        $response .= "<div class='etoiles $jeu-etoiles'>" . implode('</div><div class="etoiles ' . $jeu . '-etoiles">', $etoiles) . "</div>";
-    } else {
-        $response .= "<div class='numero-complementaire $jeu-complementaire'>$numeroComplementaire</div>";
+    // Affichage des numéros principaux et de leurs statistiques
+    foreach ($numeros as $numero) {
+        $stat = get_statistiques_numero($numero, "principal", $jeu);
+        $response .= "<div class='numero-statistique'>Numéro: $numero - " . "Sorties: " . ($stat['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie: " . ($stat['derniereSortie'] ?? 'N/A') . "</div>";
     }
 
+    // Affichage du numéro complémentaire et de ses statistiques pour les jeux applicables
+    if (!is_null($numeroComplementaire)) {
+        $statCompl = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
+        $response .= "<div class='numero-complementaire-statistique'>Numéro complémentaire: $numeroComplementaire - Sorties: " . ($statCompl['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie: " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
+    }
+
+    // Si applicable, affichez les étoiles pour l'Euromillions et leurs statistiques
+    if ($jeu == 'euromillions' && !empty($etoiles)) {
+        foreach ($etoiles as $etoile) {
+            $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
+            $response .= "<div class='etoile-statistique'>Étoile: $etoile - Sorties: " . ($statEtoile['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie: " . ($statEtoile['derniereSortie'] ?? 'N/A') . "</div>";
+        }
+    }
+
+    // Retourne la réponse construite
     return $response;
 }
+
 
 
 // Hook pour les utilisateurs connectés
