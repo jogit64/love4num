@@ -98,6 +98,7 @@ function generer_numeros_loto()
     $response = construire_reponse($jeu, $numeros, isset($etoiles) ? $etoiles : null, $numero_complementaire ?? $numeroDream);
 
     echo $response;
+    echo afficher_statistiques_numeros($jeu, $numeros, $etoiles, $numero_complementaire);
     wp_die();
 }
 
@@ -121,32 +122,21 @@ function construire_reponse($jeu, $numeros, $etoiles = null, $numeroComplementai
     // Détermine le titre approprié en fonction du jeu
     $titreJeu = titre_jeu($jeu);
 
-    // Début de la réponse
-    $response = "<div class='titre'>Vos numéros pour $titreJeu :</div>";
+    $response = "<div class='titre'>Vos numéros pour $titreJeu</div>" .
+        "<div class='numeros $jeu-numeros'>" . implode('</div><div class="numeros ' . $jeu . '-numeros">', $numeros) . "</div>";
 
-    // Affichage des numéros principaux et de leurs statistiques
-    foreach ($numeros as $numero) {
-        $stat = get_statistiques_numero($numero, "principal", $jeu);
-        $response .= "<div class='numero-statistique'>Numéro: $numero - " . "Sorties: " . ($stat['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie: " . ($stat['derniereSortie'] ?? 'N/A') . "</div>";
+    if ($jeu == 'eurodreams') {
+        $response .= "<div class='numero-complementaire eurodreams-dream'>$numeroComplementaire</div>";
+    } else if ($etoiles !== null) {
+        $response .= "<div class='etoiles $jeu-etoiles'>" . implode('</div><div class="etoiles ' . $jeu . '-etoiles">', $etoiles) . "</div>";
+    } else {
+        $response .= "<div class='numero-complementaire $jeu-complementaire'>$numeroComplementaire</div>";
     }
 
-    // Affichage du numéro complémentaire et de ses statistiques pour les jeux applicables
-    if (!is_null($numeroComplementaire)) {
-        $statCompl = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
-        $response .= "<div class='numero-complementaire-statistique'>Numéro complémentaire: $numeroComplementaire - Sorties: " . ($statCompl['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie: " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
-    }
-
-    // Si applicable, affichez les étoiles pour l'Euromillions et leurs statistiques
-    if ($jeu == 'euromillions' && !empty($etoiles)) {
-        foreach ($etoiles as $etoile) {
-            $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
-            $response .= "<div class='etoile-statistique'>Étoile: $etoile - Sorties: " . ($statEtoile['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie: " . ($statEtoile['derniereSortie'] ?? 'N/A') . "</div>";
-        }
-    }
-
-    // Retourne la réponse construite
     return $response;
 }
+
+
 
 
 
@@ -206,4 +196,33 @@ function get_statistiques_numero($numero, $type, $jeu)
     }
 
     return null;
+}
+
+
+function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroComplementaire)
+{
+    $response = "<div class='statistiques'>";
+
+    // Statistiques pour chaque numéro principal
+    foreach ($numeros as $numero) {
+        $stat = get_statistiques_numero($numero, "principal", $jeu);
+        $response .= "<div class='stat-numero'>Numéro $numero : Sorties - " . ($stat['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "</div>";
+    }
+
+    // Si étoiles (pour l'Euromillions), afficher leurs statistiques
+    if ($jeu == 'euromillions' && $etoiles) {
+        foreach ($etoiles as $etoile) {
+            $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
+            $response .= "<div class='stat-etoile'>Étoile $etoile : Sorties - " . ($statEtoile['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie - " . ($statEtoile['derniereSortie'] ?? 'N/A') . "</div>";
+        }
+    }
+
+    // Si numéro complémentaire, afficher ses statistiques
+    if ($numeroComplementaire !== null) {
+        $statCompl = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
+        $response .= "<div class='stat-complementaire'>Numéro complémentaire $numeroComplementaire : Sorties - " . ($statCompl['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie - " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
+    }
+
+    $response .= "</div>"; // Fin du bloc statistiques
+    return $response;
 }
