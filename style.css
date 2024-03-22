@@ -198,6 +198,10 @@
   margin-top: 20px;
 }
 
+.statistiques-intro {
+  font-size: 12px;
+}
+
 .stat-numero,
 .stat-etoile,
 .stat-complementaire {
@@ -206,4 +210,5 @@
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
+  font-size: 12px;
 }

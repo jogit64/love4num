@@ -190,10 +190,13 @@ function get_statistiques_numero($numero, $type, $jeu)
         // Exemple d'extraction des données
         return [
             'derniereSortie' => $data['fields']['derniereSortie']['stringValue'],
-            'nombreDeSorties' => $data['fields']['nombreDeSorties']['integerValue'],
+            'pourcentageDeSorties' => $data['fields']['pourcentageDeSorties']['integerValue'],
             'pourcentageDeSorties' => $data['fields']['pourcentageDeSorties']['stringValue'],
         ];
     }
+    // Dans la fonction get_statistiques_numero, juste avant de retourner les données :
+    echo "<div style='display:none;'>Statistiques récupérées pour le numéro $numero : " . htmlspecialchars(json_encode($data)) . "</div>";
+
 
     return null;
 }
@@ -201,28 +204,52 @@ function get_statistiques_numero($numero, $type, $jeu)
 
 function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroComplementaire)
 {
+    // $debugLog = [];
     $response = "<div class='statistiques'>";
+
+    // Ajouter un titre et une explication pour les statistiques
+    $response .= "<div class='statistiques-intro'>
+                    <h2>Vos statistiques :</h2>
+                    <p>Les données sont basées sur les tirages depuis le 4 novembre 2019. La 'Fréquence de sortie' indique la probabilité d'apparition de chaque numéro.</p>
+                  </div>";
 
     // Statistiques pour chaque numéro principal
     foreach ($numeros as $numero) {
         $stat = get_statistiques_numero($numero, "principal", $jeu);
-        $response .= "<div class='stat-numero'>Numéro $numero : Sorties - " . ($stat['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "</div>";
+        $response .= "<div class='stat-numero'>Numéro $numero : Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . "%, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "</div>";
     }
 
     // Si étoiles (pour l'Euromillions), afficher leurs statistiques
     if ($jeu == 'euromillions' && $etoiles) {
         foreach ($etoiles as $etoile) {
             $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
-            $response .= "<div class='stat-etoile'>Étoile $etoile : Sorties - " . ($statEtoile['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie - " . ($statEtoile['derniereSortie'] ?? 'N/A') . "</div>";
+            $response .= "<div class='stat-etoile'>Étoile $etoile : Fréquence de sortie : " . ($statEtoile['pourcentageDeSorties'] ?? 'N/A') . "%, Dernière sortie - " . ($statEtoile['derniereSortie'] ?? 'N/A') . "</div>";
         }
     }
 
-    // Si numéro complémentaire, afficher ses statistiques
-    if ($numeroComplementaire !== null) {
+    // Gestion spécifique pour le numéro chance d'EuroDreams
+    // if ($jeu == 'eurodreams' && $numeroComplementaire !== null) {
+    //     $statChanceEurodreams = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
+    //     $response .= "<div class='stat-chance'>Numéro chance $numeroComplementaire : Fréquence de sortie : " . ($statChanceEurodreams['pourcentageDeSorties'] ?? 'N/A') . "%, Dernière sortie - " . ($statChanceEurodreams['derniereSortie'] ?? 'N/A') . "</div>";
+    // } elseif ($numeroComplementaire !== null) { // Pour les autres jeux avec numéro complémentaire ou étoile
+    //     $statCompl = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
+    //     $response .= "<div class='stat-complementaire'>Numéro complémentaire $numeroComplementaire : Fréquence de sortie : " . ($statCompl['pourcentageDeSorties'] ?? 'N/A') . "%, Dernière sortie - " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
+    // }
+
+
+    if ($jeu == 'eurodreams') {
+        // Assurez-vous que le numéro chance pour Eurodreams est correctement passé et traité ici.
+        // Vérifiez si la variable $numeroComplementaire contient bien la valeur attendue pour Eurodreams.
+        $statNumeroChance = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
+        $response .= "<div class='stat-numero-chance'>Numéro Chance $numeroComplementaire : Fréquence de sortie : " . ($statNumeroChance['pourcentageDeSorties'] ?? 'N/A') . "%, Dernière sortie - " . ($statNumeroChance['derniereSortie'] ?? 'N/A') . "</div>";
+    } elseif ($numeroComplementaire !== null) { // Pour les autres jeux avec numéro complémentaire ou étoile
         $statCompl = get_statistiques_numero($numeroComplementaire, "chance", $jeu);
-        $response .= "<div class='stat-complementaire'>Numéro complémentaire $numeroComplementaire : Sorties - " . ($statCompl['nombreDeSorties'] ?? 'N/A') . ", Dernière sortie - " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
+        $response .= "<div class='stat-complementaire'>Numéro complémentaire $numeroComplementaire : Fréquence de sortie : " . ($statCompl['pourcentageDeSorties'] ?? 'N/A') . "%, Dernière sortie - " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
     }
 
     $response .= "</div>"; // Fin du bloc statistiques
+
+    
+
     return $response;
 }
