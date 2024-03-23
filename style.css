@@ -133,6 +133,18 @@
   font-weight: bold;
   margin-bottom: 15px;
 }
+.titre-stat {
+  color: #7a5dbf;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 4dvb;
+}
+
+.statistiques-intro {
+  font-size: 14px;
+  color: #7a5dbf;
+}
 
 .numeros,
 .etoiles,
@@ -198,17 +210,15 @@
   margin-top: 20px;
 }
 
-.statistiques-intro {
-  font-size: 12px;
-}
-
 .stat-numero,
 .stat-etoile,
+.stat-chance,
 .stat-complementaire {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
+  color: #7a5dbf;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 14px;
 }
