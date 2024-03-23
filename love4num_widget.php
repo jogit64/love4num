@@ -207,8 +207,9 @@ function get_statistiques_numero($numero, $type, $jeu)
 
 function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroComplOuDream)
 {
-    // $debugLog = [];
     $response = "<div class='statistiques'>";
+
+
 
     // Ajouter un titre et une explication pour les statistiques
     $response .= "<div>
@@ -216,37 +217,41 @@ function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroC
                     <p class='statistiques-intro'> - Basées sur les tirages depuis le 4 novembre 2019 -</p>
                   </div>";
 
-    // Statistiques pour chaque numéro principal
+    // Pour chaque numéro principal
     foreach ($numeros as $numero) {
         $stat = get_statistiques_numero($numero, "principal", $jeu);
-        $response .= "<div class='stat-numero'>Numéro $numero : Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "</div>";
-    }
-
-    // Si étoiles (pour l'Euromillions), afficher leurs statistiques
-    if ($jeu == 'euromillions' && $etoiles) {
-        foreach ($etoiles as $etoile) {
-            $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
-            $response .= "<div class='stat-etoile'>Étoile $etoile : Fréquence de sortie : " . ($statEtoile['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($statEtoile['derniereSortie'] ?? 'N/A') . "</div>";
+        // Utilisation directe des classes CSS spécifiques
+        if ($jeu == 'loto') {
+            $response .= "<div class='loto-numeros numeros'>$numero</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "<br>";
+        } elseif ($jeu == 'euromillions') {
+            // Pour les numéros principaux de l'Euromillions
+            $response .= "<div class='euromillions-numeros numeros'>$numero</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "<br>";
+        } elseif ($jeu == 'eurodreams') {
+            // Pour les numéros principaux de l'Eurodreams
+            $response .= "<div class='eurodreams-numeros numeros'>$numero</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "<br>";
         }
     }
 
-    // Gestion spécifique pour le numéro chance d'EuroDreams
-    if (
-        $jeu == 'eurodreams' && $numeroComplOuDream !== null
-    ) {
-        $statChanceEurodreams = get_statistiques_numero($numeroComplOuDream, "chance", $jeu);
-        $response .= "<div class='stat-chance'>Numéro chance $numeroComplOuDream : Fréquence de sortie : " . ($statChanceEurodreams['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($statChanceEurodreams['derniereSortie'] ?? 'N/A') . "</div>";
-    } elseif ($numeroComplOuDream !== null) {
-        // Pour les autres jeux avec numéro complémentaire ou étoile
-        $statCompl = get_statistiques_numero($numeroComplOuDream, "chance", $jeu);
-        $response .= "<div class='stat-complementaire'>Numéro complémentaire $numeroComplOuDream : Fréquence de sortie : " . ($statCompl['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($statCompl['derniereSortie'] ?? 'N/A') . "</div>";
+    // Si étoiles pour l'Euromillions
+    if ($jeu == 'euromillions' && $etoiles) {
+        foreach ($etoiles as $etoile) {
+            $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
+            // Ici, les étoiles utilisent déjà une classe CSS spécifique
+            $response .= "<div class='euromillions-etoiles'>$etoile</div> Fréquence de sortie : " . ($statEtoile['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($statEtoile['derniereSortie'] ?? 'N/A') . "<br>";
+        }
     }
 
-
+    // Numéro complémentaire ou de rêve
+    if ($numeroComplOuDream !== null) {
+        if ($jeu == 'loto') {
+            $response .= "<div class='loto-complementaire numeros'>$numeroComplOuDream</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A');
+        } elseif ($jeu == 'eurodreams') {
+            // Pour le numéro de rêve d'Eurodreams
+            $response .= "<div class='eurodreams-dream'>$numeroComplOuDream</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A');
+        }
+        // Pas besoin de gérer le complémentaire pour l'Euromillions ici, car ils sont traités comme des étoiles
+    }
 
     $response .= "</div>"; // Fin du bloc statistiques
-
-
-
     return $response;
 }
