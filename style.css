@@ -210,6 +210,7 @@
 .statistique-ligne {
   display: flex;
   align-items: center;
+  font-size: 14px;
 }
 
 .numero-statistique-badge {
@@ -237,4 +238,31 @@
 .statistiques img {
   width: 20px; /* Taille des icônes */
   margin-right: 5px; /* Espace entre l'icône et le texte */
+}
+
+.badges-statistiques {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrer les badges dans leur conteneur */
+  gap: 20px; /* Espacement entre les badges */
+}
+
+.titre-et-intro,
+.legendes {
+  display: block; /* Cela devrait être par défaut, mais ajouté pour s'assurer qu'il n'y a pas de conflit */
+  width: 100%; /* S'assure que prend toute la largeur disponible */
+  clear: both; /* Si des éléments flottants précédents affectent la disposition */
+}
+
+.legende {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #7a5dbf;
+  margin: 5px 0; /* Espacement vertical */
+}
+
+.legende img {
+  margin-right: 10px; /* Espace entre l'icône et le texte */
 }

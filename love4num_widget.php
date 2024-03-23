@@ -216,10 +216,19 @@ function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroC
     $response = "<div class='statistiques'>";
 
     // Ajouter un titre et une explication pour les statistiques
-    $response .= "<div>
-                    <div class='titre-stat'>Statistiques </div>
-                    <p class='statistiques-intro'> - Basées sur les tirages depuis le 4 novembre 2019 -</p>
+    $response .= "<div class='titre-et-intro'>
+                    <div class='titre-stat'>Statistiques</div>
+                    <p class='statistiques-intro'>Basées sur les tirages depuis le 4 novembre 2019</p>
                   </div>";
+
+    // Ajout des légendes avec icônes en dessous du titre et de la baseline, chacune sur sa propre ligne
+    $response .= "<div class='titre-et-intro'>
+                    <p class='legende'><img src='$historyIconPath' alt='Historique'/> Dernière sortie</p>
+                    <p class='legende'><img src='$pieChartIconPath' alt='Pourcentage'/> % de sorties</p>
+                  </div>";
+
+    // Conteneur pour les badges de statistiques
+    $response .= "<div class='badges-statistiques'>"; // Début du conteneur des badges
 
     // Boucle sur les numéros principaux
     foreach ($numeros as $numero) {
@@ -230,12 +239,45 @@ function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroC
         // Mise en forme avec les icônes
         $response .= "<div class='numero-statistique-badge'>";
         $response .= "<div class='{$jeu}-numeros numeros'>$numero</div>";
-        $response .= "<div class='statistique-ligne'><img src='$historyIconPath' alt='Historique'/> $drawsSinceLastOut $label depuis la dernière sortie</div>";
-        $response .= "<div class='statistique-ligne'><img src='$pieChartIconPath' alt='Pourcentage'/> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %</div>";
+        $response .= "<div class='statistique-ligne'><img src='$historyIconPath' alt='Historique'/> $drawsSinceLastOut $label </div>";
+        $response .= "<div class='statistique-ligne'><img src='$pieChartIconPath' alt='Pourcentage'/>  " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %</div>";
+        $response .= "</div>"; // Fin d'un badge de statistique
+    }
+
+
+    // Traitement pour les étoiles de l'Euromillions
+    if ($jeu == 'euromillions' && $etoiles) {
+        foreach ($etoiles as $etoile) {
+            $statEtoile = get_statistiques_numero($etoile, "chance", $jeu);
+            // Conversion de la date de la dernière sortie en nombre de tirages pour l'étoile
+            $drawsSinceLastOutEtoile = calculateExactDrawsSinceLastOut($statEtoile['derniereSortie'], $jeu);
+            $response .= "<div class='numero-statistique-badge'>";
+            $response .= "<div class='euromillions-etoiles etoiles'>$etoile</div>";
+            $response .= "<div class='statistique-ligne'><img src='$historyIconPath' alt='Dernière sortie'/> $drawsSinceLastOutEtoile tirages </div>";
+            $response .= "<div class='statistique-ligne'><img src='$pieChartIconPath' alt='Pourcentage'/> " . ($statEtoile['pourcentageDeSorties'] ?? 'N/A') . " %</div>";
+            $response .= "</div>";
+        }
+    }
+
+    // Traitement pour le numéro complémentaire ou de rêve
+    if ($numeroComplOuDream !== null) {
+        $stat = get_statistiques_numero($numeroComplOuDream, "chance", $jeu);
+        // Conversion de la date de la dernière sortie en nombre de tirages pour le numéro complémentaire ou de rêve
+        $drawsSinceLastOutCompl = calculateExactDrawsSinceLastOut($stat['derniereSortie'], $jeu);
+        $response .= "<div class='numero-statistique-badge'>";
+        if ($jeu == 'loto') {
+            $response .= "<div class='loto-complementaire numeros'>$numeroComplOuDream</div>";
+        } elseif ($jeu == 'eurodreams') {
+            $response .= "<div class='eurodreams-dream'>$numeroComplOuDream</div>";
+        }
+        $response .= "<div class='statistique-ligne'><img src='$historyIconPath' alt='Dernière sortie'/> $drawsSinceLastOutCompl tirages </div>";
+        $response .= "<div class='statistique-ligne'><img src='$pieChartIconPath' alt='Pourcentage'/> " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %</div>";
         $response .= "</div>";
     }
 
-    // Traitement similaire pour les étoiles et les numéros complémentaires...
+    $response .= "</div>"; // Fin du conteneur des badges
+
+
 
     $response .= "</div>"; // Fin du bloc statistiques
     return $response;
