@@ -230,7 +230,7 @@
   margin-bottom: 10px;
 } */
 
-.stat-numero div,
+/* .stat-numero div,
 .stat-etoile div,
 .stat-chance div,
 .stat-complementaire div {
@@ -241,10 +241,10 @@
   width: 40px;
   height: 40px;
   color: #ffffff;
-  margin-right: 10px; /* Ajoutez un peu d'espace entre le numéro et le texte des stats */
-}
+  margin-right: 10px; 
+} */
 
-.stat-text {
+/* .stat-text {
   display: inline-block;
   vertical-align: middle;
-}
+} */

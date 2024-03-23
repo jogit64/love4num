@@ -8,6 +8,8 @@
  */
 
 require_once(plugin_dir_path(__FILE__) . 'firebase_config.php');
+require_once(plugin_dir_path(__FILE__) . 'calcul_date.php');
+
 
 
 function love4num_styles()
@@ -218,19 +220,17 @@ function afficher_statistiques_numeros($jeu, $numeros, $etoiles = null, $numeroC
                   </div>";
 
     // Pour chaque numéro principal
+    // Pour chaque numéro principal
     foreach ($numeros as $numero) {
         $stat = get_statistiques_numero($numero, "principal", $jeu);
-        // Utilisation directe des classes CSS spécifiques
-        if ($jeu == 'loto') {
-            $response .= "<div class='loto-numeros numeros'>$numero</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "<br>";
-        } elseif ($jeu == 'euromillions') {
-            // Pour les numéros principaux de l'Euromillions
-            $response .= "<div class='euromillions-numeros numeros'>$numero</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "<br>";
-        } elseif ($jeu == 'eurodreams') {
-            // Pour les numéros principaux de l'Eurodreams
-            $response .= "<div class='eurodreams-numeros numeros'>$numero</div> Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %, Dernière sortie - " . ($stat['derniereSortie'] ?? 'N/A') . "<br>";
-        }
+        $drawsSinceLastOut = calculateExactDrawsSinceLastOut($stat['derniereSortie'], $jeu);
+        $label = $drawsSinceLastOut === 1 ? "tirage" : "tirages"; // Pluriel ou singulier selon le cas
+
+        // Inclure à la fois le nombre de tirages depuis la dernière sortie et la fréquence de sortie (%)
+        $response .= "<div class='{$jeu}-numeros numeros'>$numero</div> Nombre de {$label} depuis la dernière sortie : $drawsSinceLastOut, Fréquence de sortie : " . ($stat['pourcentageDeSorties'] ?? 'N/A') . " %<br>";
     }
+
+
 
     // Si étoiles pour l'Euromillions
     if ($jeu == 'euromillions' && $etoiles) {
