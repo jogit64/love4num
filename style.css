@@ -121,7 +121,8 @@
 
 #resultats {
   width: 100%;
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
+  /* background-color: green; */
   padding: 20px;
   border-radius: 8px;
   box-sizing: border-box;
@@ -206,45 +207,34 @@
   font-size: 16px;
 }
 
-.statistiques {
-  margin-top: 20px;
-}
-
-/* .stat-numero,
-.stat-etoile,
-.stat-chance,
-.stat-complementaire {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  color: #7a5dbf;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  font-size: 14px;
-} */
-
-/* .stat-container {
+.statistique-ligne {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-} */
+}
 
-/* .stat-numero div,
-.stat-etoile div,
-.stat-chance div,
-.stat-complementaire div {
+.numero-statistique-badge {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  color: #ffffff;
-  margin-right: 10px; 
-} */
+  background-color: #f0f0f0; /* Couleur de fond du badge */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px; /* Bordures arrondies */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Ombre portée */
+}
 
-/* .stat-text {
-  display: inline-block;
-  vertical-align: middle;
-} */
+.statistiques {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centrer les badges dans le conteneur */
+}
+
+.numeros {
+  margin-bottom: 5px; /* Espace entre le numéro et les statistiques */
+}
+
+.statistiques img {
+  width: 20px; /* Taille des icônes */
+  margin-right: 5px; /* Espace entre l'icône et le texte */
+}
