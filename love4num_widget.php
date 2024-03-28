@@ -59,7 +59,6 @@ add_shortcode('love4num', 'love4num');
 
 
 
-
 function generer_numeros_loto()
 {
     $texte = isset($_POST['texte']) ? sanitize_text_field($_POST['texte']) : '';
@@ -68,23 +67,27 @@ function generer_numeros_loto()
         wp_die();
     }
 
-    $jeu = isset($_POST['jeu']) ? $_POST['jeu'] : 'loto'; // Récupère le type de jeu
+    $jeu = isset($_POST['jeu']) ? $_POST['jeu'] : 'loto';
 
     $seed = crc32($texte);
-    mt_srand($seed);
+    $nombreDor = (1 + sqrt(5)) / 2; // Calcul du nombre d'or
+    $seedModifie = intval($seed * $nombreDor) & 0x7FFFFFFF; // Modification de la graine avec le nombre d'or
+    mt_srand($seedModifie); // Initialisation du générateur de nombres aléatoires avec la graine modifiée
 
     switch ($jeu) {
         case 'loto':
             $possibleNumbers = range(1, 49);
             shuffle($possibleNumbers);
             $numeros = array_slice($possibleNumbers, 0, 5);
-            $numero_complementaire = rand(1, 10);
+            $possibleComplementaires = range(1, 10);
+            shuffle($possibleComplementaires);
+            $numero_complementaire = array_slice($possibleComplementaires, 0, 1)[0]; // Corrigé pour afficher correctement
             break;
         case 'euromillions':
             $possibleNumbers = range(1, 50);
             shuffle($possibleNumbers);
             $numeros = array_slice($possibleNumbers, 0, 5);
-            $possibleEtoiles = range(1, 12); // Correction pour la plage correcte des étoiles
+            $possibleEtoiles = range(1, 12);
             shuffle($possibleEtoiles);
             $etoiles = array_slice($possibleEtoiles, 0, 2);
             break;
@@ -92,22 +95,22 @@ function generer_numeros_loto()
             $possibleNumbers = range(1, 40);
             shuffle($possibleNumbers);
             $numeros = array_slice($possibleNumbers, 0, 6);
-            $numeroDream = rand(1, 5);
+            $possibleDreams = range(1, 5);
+            shuffle($possibleDreams);
+            $numeroDream = array_slice($possibleDreams, 0, 1)[0]; // Applique également la correction ici
             break;
     }
 
     // Construction de la réponse selon le jeu
-    $response = construire_reponse($jeu, $numeros, isset($etoiles) ? $etoiles : null, $numero_complementaire ?? $numeroDream);
+    $response = construire_reponse($jeu, $numeros, isset($etoiles) ? $etoiles : null, isset($numero_complementaire) ? $numero_complementaire : (isset($numeroDream) ? $numeroDream : null));
 
     echo $response;
-    $numeroComplOuDream = $jeu == 'eurodreams' ? $numeroDream : $numero_complementaire;
-    echo afficher_statistiques_numeros($jeu, $numeros, $etoiles, $numeroComplOuDream);
-
-
-
+    $numeroComplOuDream = isset($numeroDream) ? $numeroDream : $numero_complementaire;
+    echo afficher_statistiques_numeros($jeu, $numeros, isset($etoiles) ? $etoiles : null, $numeroComplOuDream);
 
     wp_die();
 }
+
 
 // Nouvelle fonction pour déterminer le titre en fonction du jeu
 function titre_jeu($jeu)
